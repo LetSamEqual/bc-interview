@@ -30,6 +30,12 @@ query Node {
                                 currencyCode
                             }
                         }
+                        compareAtPriceRange {
+                            maxVariantPrice {
+                                amount
+                                currencyCode
+                        }
+                        }
                         variants(first: 1) {
                             edges {
                                 node {
