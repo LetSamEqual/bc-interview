@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { SoldOutTag } from "../../sold-out-tag/sold-out-tag.component";
+import { SoldOutTag } from "../sold-out-tag/sold-out-tag.component";
 
 export const ProductTile = ({ props }) => {
   const [imageSrc, setImageSrc] = useState(props.featuredImage.src);
-  const soldOutTag = (
-    <p className="absolute bottom-2 left-2 bg-slate-950 rounded-full w-fit text-white px-2 text-sm">
-      Sold out
-    </p>
-  );
+
+  // Ran into some trouble locating a second image for any of the
+  // products in the hydrogen and neon collections
+  // I've created some checks and logic that would provide the feature requested
+  // if a second image is available
 
   const hasTouchSupport = () => {
     return "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -32,6 +32,11 @@ export const ProductTile = ({ props }) => {
       setImageSrc(props.featuredImage.src);
     }
   };
+
+  //   Didn't create a separate component for the new price title
+  //   as the use case for this only seemed relevant to the product tile component.
+  //   Could be exported to a separate component for style reasons,
+  //   however it seems more practical to contain it within the component that uses it
 
   const isOnSale =
     props.priceRange.maxVariantPrice.amount !==

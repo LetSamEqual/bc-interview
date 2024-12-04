@@ -6,6 +6,12 @@ const client = createStorefrontApiClient({
   publicAccessToken: process.env.REACT_APP_ACCESS_TOKEN,
 });
 
+// generic query allows for extension of its usage, allowing dev to pass any
+// additional node id to create a new query
+
+// Error handling has basic functionality at the moment, but could be
+// extended to meet whatever standards are required
+
 export const genericQuery = async (node) => {
   const querySchema = `
 query Node {
@@ -67,6 +73,9 @@ query Node {
 }
 `;
   const { data, errors } = await client.request(querySchema);
+  if (errors) {
+    console.log("Request failed with error code: ", errors);
+  }
   return [data, errors];
 };
 

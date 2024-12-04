@@ -1,12 +1,12 @@
 import "./App.css";
 
-import { ProductTile } from "./components/product-tile/product-tile.component";
-import { Button } from "./button/button.component";
+import { useState } from "react";
 import { genericQuery } from "./queries/genericQuery";
 import { hydrogenNode, neonNode } from "./queries/nodes";
-import { useState } from "react";
 import { sortData } from "./utils/helper-functions";
-import { ErrorMessage } from "./error-message/error-message.component";
+import { ErrorMessage } from "./components/error-message/error-message.component";
+import { ProductTile } from "./components/product-tile/product-tile.component";
+import { Button } from "./components/button/button.component";
 
 function App() {
   const [collectionData, setCollectionData] = useState([]);
@@ -18,14 +18,11 @@ function App() {
     const [data, errors] = await genericQuery(node);
     if (errors) {
       setError(errors);
-      console.log("Request failed with error code: ", errors);
       return;
     }
     setCollectionData(data.node.products.edges);
     setCurrentNode(data.node.id);
   };
-
-  console.log(collectionData);
 
   const onChangeHandler = (orderSelection) => {
     setDisplayOrder(orderSelection);
